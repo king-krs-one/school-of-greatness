@@ -1,0 +1,11 @@
+{
+  "name": "authentication-app-django",
+  "version": "1.0.0",
+  "description": "a full authentication app with django backend ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathan Nickels",
+  "license": "ISC"
+}
