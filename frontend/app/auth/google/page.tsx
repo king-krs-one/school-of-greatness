@@ -2,7 +2,7 @@
 export default function Page() {
   return (
     <main>
-      <h1>Home Page</h1>
+      <h1>Google</h1>
     </main>
   )
 }
