@@ -1,22 +1,19 @@
-import { InputField, Button, Label } from "@/components/widgets";
+import { InputField, Button, Label, Heading, Image } from "@/components/widgets";
 
-// import InputField from "@/components/widgets/Input";
-// import Label from "@/components/widgets/Label";
-// import Button from "@/components/widgets/Button";
 
 export default function Page() {
   return (
     <main>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
+          <Image
+            className="h-10"
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="School of Greatness"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <Heading level="h2" className="text-center">
             Sign up for your account
-          </h2>
+          </Heading>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -73,12 +70,12 @@ export default function Page() {
             </div>
             <div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="re_password">Confirm Password</Label>
               </div>
               <div className="mt-2">
                 <InputField
-                  id="password"
-                  name="password"
+                  id="re_password"
+                  name="re_password"
                   type="password"
                   required
                 />
