@@ -3,7 +3,7 @@
 import { useState, ChangeEvent } from "react";
 
 import {
-  Anchor,
+  Link,
   Button,
   Heading,
   Image,
@@ -123,9 +123,9 @@ export default function Page() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}
-            <a href="#" className="">
+            <Link href="#" className="" id="whatever">
               Start a 14 day free trial
-            </a>
+            </Link>
           </p>
         </div>
       </div>
