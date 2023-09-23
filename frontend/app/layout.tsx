@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Provider from "@/redux/provider";
 import { Navbar, Footer } from "@/components/layout";
+import { Notification } from "@/components/widgets";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Provider>
+          <Notification />
           <Navbar />
           {children}
           <Footer />

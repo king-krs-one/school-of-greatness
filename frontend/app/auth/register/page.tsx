@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify"
 
 import {
   Link,
@@ -9,9 +11,15 @@ import {
   Image,
   InputField,
   Label,
+  Spinner
 } from "@/components/widgets";
 
+import { useRegisterMutation } from "@/redux/features/authApiSlice";
+
 export default function Page() {
+  const router = useRouter()
+  const [register, { isLoading }] = useRegisterMutation();
+
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -25,6 +33,20 @@ export default function Page() {
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    register({ first_name, last_name, email, password, re_password })
+      .unwrap()
+      .then(() => {
+        toast.success('Please check your emails to verify account')
+        router.push("/auth/login")
+      })
+      .catch(() => {
+        toast.error('Failed to register account')
+      })
   };
 
   return (
@@ -42,7 +64,7 @@ export default function Page() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={onSubmit}>
             <div>
               <Label htmlFor="first_name">First Name</Label>
               <div className="mt-2">
@@ -117,15 +139,12 @@ export default function Page() {
             </div>
 
             <div>
-              <Button type="submit">Sign in</Button>
+              <Button type="submit">{isLoading ? <Spinner md/> : "Sign up"}</Button>
             </div>
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-            <Link href="#" className="" id="whatever">
-              Start a 14 day free trial
-            </Link>
+            Already have an account? <Link href="/auth/login">Login here</Link>
           </p>
         </div>
       </div>
