@@ -1,7 +1,32 @@
-import { InputField, Button, Label, Heading, Image } from "@/components/widgets";
+"use client";
 
+import { useState, ChangeEvent } from "react";
+
+import {
+  Anchor,
+  Button,
+  Heading,
+  Image,
+  InputField,
+  Label,
+} from "@/components/widgets";
 
 export default function Page() {
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    re_password: "",
+  });
+
+  const { first_name, last_name, email, password, re_password } = formData;
+
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
     <main>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -25,6 +50,8 @@ export default function Page() {
                   id="first_name"
                   name="first_name"
                   type="text"
+                  onChange={onChange}
+                  value={first_name}
                   required
                 />
               </div>
@@ -37,6 +64,8 @@ export default function Page() {
                   id="last_name"
                   name="last_name"
                   type="text"
+                  onChange={onChange}
+                  value={last_name}
                   required
                 />
               </div>
@@ -49,7 +78,8 @@ export default function Page() {
                   id="email"
                   name="email"
                   type="email"
-                  autoComplete="email"
+                  onChange={onChange}
+                  value={email}
                   required
                 />
               </div>
@@ -64,6 +94,8 @@ export default function Page() {
                   id="password"
                   name="password"
                   type="password"
+                  onChange={onChange}
+                  value={password}
                   required
                 />
               </div>
@@ -77,6 +109,8 @@ export default function Page() {
                   id="re_password"
                   name="re_password"
                   type="password"
+                  onChange={onChange}
+                  value={re_password}
                   required
                 />
               </div>
@@ -86,6 +120,13 @@ export default function Page() {
               <Button type="submit">Sign in</Button>
             </div>
           </form>
+
+          <p className="mt-10 text-center text-sm text-gray-500">
+            Not a member?{' '}
+            <a href="#" className="">
+              Start a 14 day free trial
+            </a>
+          </p>
         </div>
       </div>
     </main>
