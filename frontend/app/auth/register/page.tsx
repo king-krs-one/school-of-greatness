@@ -1,54 +1,7 @@
-"use client";
-
-import { useState, ChangeEvent, FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify"
-
-import {
-  Link,
-  Button,
-  Heading,
-  Image,
-  InputField,
-  Label,
-  Spinner
-} from "@/components/widgets";
-
-import { useRegisterMutation } from "@/redux/features/authApiSlice";
+import { Link, Heading, Image } from "@/components/widgets";
+import { RegisterForm } from "@/components/forms";
 
 export default function Page() {
-  const router = useRouter()
-  const [register, { isLoading }] = useRegisterMutation();
-
-  const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    re_password: "",
-  });
-
-  const { first_name, last_name, email, password, re_password } = formData;
-
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    register({ first_name, last_name, email, password, re_password })
-      .unwrap()
-      .then(() => {
-        toast.success('Please check your emails to verify account')
-        router.push("/auth/login")
-      })
-      .catch(() => {
-        toast.error('Failed to register account')
-      })
-  };
-
   return (
     <main>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -64,85 +17,7 @@ export default function Page() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={onSubmit}>
-            <div>
-              <Label htmlFor="first_name">First Name</Label>
-              <div className="mt-2">
-                <InputField
-                  id="first_name"
-                  name="first_name"
-                  type="text"
-                  onChange={onChange}
-                  value={first_name}
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="last_name">Last Name</Label>
-              <div className="mt-2">
-                <InputField
-                  id="last_name"
-                  name="last_name"
-                  type="text"
-                  onChange={onChange}
-                  value={last_name}
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="email">Email address</Label>
-              <div className="mt-2">
-                <InputField
-                  id="email"
-                  name="email"
-                  type="email"
-                  onChange={onChange}
-                  value={email}
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-              </div>
-              <div className="mt-2">
-                <InputField
-                  id="password"
-                  name="password"
-                  type="password"
-                  onChange={onChange}
-                  value={password}
-                  required
-                />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="re_password">Confirm Password</Label>
-              </div>
-              <div className="mt-2">
-                <InputField
-                  id="re_password"
-                  name="re_password"
-                  type="password"
-                  onChange={onChange}
-                  value={re_password}
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <Button type="submit">{isLoading ? <Spinner md/> : "Sign up"}</Button>
-            </div>
-          </form>
-
+          <RegisterForm />
           <p className="mt-10 text-center text-sm text-gray-500">
             Already have an account? <Link href="/auth/login">Login here</Link>
           </p>

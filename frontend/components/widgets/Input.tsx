@@ -1,4 +1,4 @@
-type ValidInputTypes =
+export type ValidInputTypes =
   | "text"
   | "password"
   | "email"
