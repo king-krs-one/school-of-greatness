@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent } from "react";
 import { ValidInputTypes } from "@/components/widgets/Input";
 import { Button, Spinner } from "@/components/widgets";
-import { FormInput } from ".";
+import { InputFieldWithLabel } from "@/components/widgets/Input";
 
 export interface ConfigProps {
   labelText: string;
@@ -30,15 +30,16 @@ export default function Form({
   return (
     <form className="space-y-6" onSubmit={onSubmit}>
       {config.map((input) => (
-        <FormInput
+        <InputFieldWithLabel
           labelId={input.labelId}
           type={input.type}
+          key={input.labelId}
           value={input.value}
           onChange={onChange}
           required={input.required}
         >
           {input.labelText}
-        </FormInput>
+        </InputFieldWithLabel>
       ))}
       <div>
         <Button type="submit">{isLoading ? <Spinner md /> : btnText}</Button>

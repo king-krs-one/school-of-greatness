@@ -1,3 +1,5 @@
+import withLabel from "../hoc/withLabel";
+
 export type ValidInputTypes =
   | "text"
   | "password"
@@ -43,4 +45,8 @@ const InputField: React.FC<InputProps> = (props) => {
   );
 };
 
+const InputFieldWithLabel = withLabel(InputField);
+
 export default InputField;
+export { InputFieldWithLabel, InputField }
+
