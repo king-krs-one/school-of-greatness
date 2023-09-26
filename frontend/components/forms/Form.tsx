@@ -2,10 +2,12 @@ import { ChangeEvent, FormEvent } from "react";
 import { ValidInputTypes } from "@/components/widgets/Input";
 import { Button, Spinner } from "@/components/widgets";
 import { InputFieldWithLabel } from "@/components/widgets/Input";
+import { LinkProps } from "../hoc/withLabel";
 
 export interface ConfigProps {
   labelText: string;
   labelId: string;
+  link?: LinkProps;
   type: ValidInputTypes;
   value: string;
   required?: boolean;
@@ -36,13 +38,16 @@ export default function Form({
           key={input.labelId}
           value={input.value}
           onChange={onChange}
+          link={input.link}
           required={input.required}
         >
           {input.labelText}
         </InputFieldWithLabel>
       ))}
       <div>
-        <Button type="submit">{isLoading ? <Spinner md /> : btnText}</Button>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? <Spinner md /> : btnText}
+        </Button>
       </div>
     </form>
   );
