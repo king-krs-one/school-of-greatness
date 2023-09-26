@@ -1,5 +1,11 @@
 import { Link, Heading, Image } from "@/components/widgets";
 import { RegisterForm } from "@/components/forms";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "School of Greatness | Register",
+  description: "School of Greatness register page"
+}
 
 export default function Page() {
   return (
