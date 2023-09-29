@@ -1,66 +1,43 @@
 "use client";
 
-import { Disclosure } from "@headlessui/react";
 import {
   Bars3Icon,
   BellIcon,
   XMarkIcon,
-  UserIcon,
 } from "@heroicons/react/24/outline";
-import { NavigationMenu } from "../widgets";
+
 import Link from "next/link";
+import { Disclosure } from "@headlessui/react";
+import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { useLogoutMutation } from "@/redux/features/authApiSlice";
-import { logout } from "@/redux/features/authSlice";
+import { logout as setLogout } from "@/redux/features/authSlice";
 
-import { MenuItemProps } from "@/components/widgets/Menu";
+import { NavigationMenu } from "../widgets";
+import { getMenuMain, getMenuUser } from "./NavbarData";
 
-const menuMain = [
-  { name: "Dashboard", href: "#", current: true, className: "" },
-  {
-    name: "Media",
-    href: "#",
-    current: false,
-    className: "",
-    children: [
-      { name: "Videos", href: "#", className: "" },
-      { name: "Audio", href: "#", className: "" },
-      { name: "Ebooks", href: "#", className: "" },
-    ],
-  },
-  { name: "Encyclopedia", href: "#", current: false, className: "" },
-  {
-    name: "School",
-    href: "#",
-    current: false,
-    className: "",
-    children: [
-      { name: "Classes", href: "#", className: "" },
-      { name: "Schedules", href: "#", className: "" },
-      { name: "Achievements", href: "#", className: "" },
-    ],
-  },
-];
-
-const menuProfile: MenuItemProps[] = [
-  {
-    name: "User",
-    // icon: <UserIcon />,
-    icon: UserIcon,
-    href: "#",
-    current: false,
-    className: "",
-    children: [
-      { name: "Your Profile", href: "/", className: "" },
-      { name: "Settings", href: "/", className: "" },
-      { name: "Sign out", href: "/", className: "" },
-    ],
-  },
-];
 
 export default function Navbar() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
+  const [logout] = useLogoutMutation();
+
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const menu_main = getMenuMain(isAuthenticated) 
+  const menu_user = getMenuUser(isAuthenticated) 
+
+
+  const handleLogout = () => {
+    logout(undefined)
+      .unwrap()
+      .then(() => {
+        dispatch(setLogout());
+      })
+      .finally(() => {
+        router.push("/")
+      });
+  };
 
   return (
     <Disclosure as="nav" className="bg-white border-b">
@@ -101,13 +78,13 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:flex sm:items-center sm:ml-6">
                   <div className="flex space-x-4">
-                    <NavigationMenu menuItems={menuMain} />
+                    <NavigationMenu menuItems={menu_main} />
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
-                <NavigationMenu menuItems={menuProfile} />
+                <NavigationMenu menuItems={menu_user} />
               </div>
             </div>
           </div>

@@ -11,6 +11,7 @@ export interface MenuItemProps {
   // icon?: React.ReactElement;
   icon?: React.ComponentType;
   current?: boolean;
+  hidden?: boolean;
   children?: MenuItemProps[];
 }
 
@@ -56,9 +57,11 @@ const CustomMenuButtonWrapper = React.forwardRef<
 const MenuItems: React.FC<{ menuItems: MenuItemProps[] }> = (props) => {
   const { menuItems } = props;
 
+  const filteredMenuItems = menuItems.filter((item) => !item.hasOwnProperty("hidden") || !item.hidden);
+
   return (
     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-      {menuItems.map((item) => {
+      {filteredMenuItems.map((item) => {
         return (
           <Menu.Item key={item.name}>
             {({ active }) => (
@@ -116,7 +119,11 @@ const DropdownMenu: React.FC<MenuItemProps> = (props) => {
   return (
     // <Menu as="div" className="block px-4 py-2 text-sm text-gray-700 ">
     <Menu as="div" className="relative ml-3">
-      <CustomMenuButtonWrapper className={`${!IconComponent ? "bg-slate-100 border border-gray-300" : ""}`}>
+      <CustomMenuButtonWrapper
+        className={`${
+          !IconComponent ? "bg-slate-100 border border-gray-300" : ""
+        }`}
+      >
         <span className="absolute -inset-1.5" />
         <span className="sr-only">Open {name} menu</span>
 
@@ -140,9 +147,11 @@ const DropdownMenu: React.FC<MenuItemProps> = (props) => {
 const MenuBuilder: React.FC<MenuProps> = (props) => {
   const { menuItems, menuType = "dropdown" } = props;
 
+  const filteredMenuItems = menuItems.filter((item) => !item.hasOwnProperty("hidden") || !item.hidden);
+
   return (
     <React.Fragment>
-      {menuItems.map((item) => {
+      {filteredMenuItems.map((item) => {
         if (menuType === "dropdown" && item.children) {
           return (
             <DropdownMenu
