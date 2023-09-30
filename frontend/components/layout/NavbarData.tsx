@@ -8,11 +8,15 @@ export function getMenuUser(isAuthenticated: boolean): MenuItemProps[] {
     {
       name: "User",
       icon: UserIcon,
+      iconProps: {
+        border: true,
+        showText: true,
+      },
       href: "#",
       current: false,
       hidden: !isAuthenticated,
       className: "",
-      children: [
+      items: [
         { name: "Your Profile", href: "/", className: "" },
         { name: "Settings", href: "/", className: "" },
         { name: "Sign out", href: "/", className: "" },
@@ -21,11 +25,15 @@ export function getMenuUser(isAuthenticated: boolean): MenuItemProps[] {
     {
       name: "User",
       icon: UserIcon,
+      iconProps: {
+        border: true,
+        showText: false,
+      },
       href: "#",
       current: false,
       hidden: isAuthenticated,
       className: "",
-      children: [
+      items: [
         { name: "Sign in", href: "/", className: "" },
         { name: "Register", href: "/", className: "" },
       ],
@@ -37,16 +45,16 @@ export function getMenuUser(isAuthenticated: boolean): MenuItemProps[] {
 
 export function getMenuMain(isAuthenticated: boolean): MenuItemProps[] {
   const menuMain: MenuItemProps[] = [
-    { name: "Dashboard", href: "#", current: true, className: "" },
+    { name: "Dashboard", href: "#", current: true, className: ""},
     {
       name: "Media",
       href: "#",
       current: false,
       className: "",
-      children: [
-        { name: "Videos", href: "#", className: "" },
-        { name: "Audio", href: "#", className: "" },
-        { name: "Ebooks", href: "#", className: "" },
+      items: [
+        { name: "Videos", href: "#", className: "", icon: UserIcon},
+        { name: "Audio", href: "#", className: "", icon: UserIcon },
+        { name: "Ebooks", href: "#", className: "", icon: UserIcon },
       ],
     },
     { name: "Encyclopedia", href: "#", current: false, className: "" },
@@ -56,7 +64,7 @@ export function getMenuMain(isAuthenticated: boolean): MenuItemProps[] {
       current: false,
       hidden: !isAuthenticated,
       className: "",
-      children: [
+      items: [
         { name: "Classes", href: "#", className: "" },
         { name: "Schedules", href: "#", className: "" },
         { name: "Achievements", href: "#", className: "" },
