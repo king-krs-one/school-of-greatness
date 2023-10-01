@@ -1,28 +1,26 @@
 "use client";
 
-import { Menu } from "@headlessui/react";
-import React, { ReactNode } from "react";
+import { Menu, Disclosure } from "@headlessui/react";
+import React, { useState, ReactNode, forwardRef } from "react";
 import { TransitionMenu } from ".";
 import cn from "classnames";
-import { forwardRef } from "react";
 import Link from "next/link";
+import { ChevronUpIcon } from "@heroicons/react/24/outline";
 
-interface MenuIconProps {
+interface MenuItemIconProps {
   border: boolean;
   showText: boolean;
 }
 
 export interface MenuItemProps {
   name: string;
-  // href: string;
-  className: string;
+  className?: string;
   isSelected?: boolean;
   isMobile?: boolean;
   isBanner?: boolean;
   // icon?: React.ReactElement;
   icon?: React.ComponentType;
-  iconProps?: MenuIconProps;
-  current?: boolean;
+  iconProps?: MenuItemIconProps;
   hidden?: boolean;
   items?: MenuItemProps[];
   [rest: string]: any;
@@ -35,6 +33,17 @@ interface LinkProps extends MenuItemProps {
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   MenuItemProps;
 
+interface DropdownButtonProps extends ButtonProps {
+  children: ReactNode;
+}
+
+interface MenuButtonProps extends ButtonProps {
+  children: ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+type DropdownMenuItemProps = LinkProps | ButtonProps;
+
 interface IconProps {
   className?: string;
   "aria-hidden"?: string;
@@ -45,12 +54,7 @@ interface MenuProps {
   menuType?: "dropdown" | "flat";
 }
 
-interface MenuButtonProps extends ButtonProps {
-  children: ReactNode;
-  ref?: React.Ref<HTMLButtonElement>;
-}
-
-const MenuButtonComponent: React.FC<MenuButtonProps> = ({
+const DropdownButtonComponent: React.FC<DropdownButtonProps> = ({
   name,
   icon,
   iconProps,
@@ -104,17 +108,100 @@ const MenuButtonComponent: React.FC<MenuButtonProps> = ({
   );
 };
 
-const MenuButtonWrapper = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
-  ({ children, ...rest }, ref) => {
+const DropdownButtonWrapper = React.forwardRef<
+  HTMLButtonElement,
+  DropdownButtonProps
+>(({ children, ...rest }, ref) => {
+  return (
+    <DropdownButtonComponent {...rest} ref={ref}>
+      {children}
+    </DropdownButtonComponent>
+  );
+});
+
+const MenuButtonItem = forwardRef<HTMLButtonElement, MenuButtonProps>((props, ref) => {
+  const {
+    onClick,
+    className,
+    icon,
+    iconProps,
+    children,
+    ...rest
+  } = props;
+
+  const buttonClassName = cn(
+    className,
+  )
+
+  return (
+    <button onClick={onClick} className={buttonClassName} ref={ref} {...rest}>
+      {children}
+    </button>
+  );
+});
+
+const DropdownMenuItem = forwardRef<HTMLElement, DropdownMenuItemProps>(
+  (props: MenuItemProps, ref) => {
+    let {
+      href,
+      name,
+      onClick,
+      children,
+      active,
+      className,
+      isSelected,
+      isMobile,
+      isBanner,
+      icon,
+      ...rest
+    } = props;
+
+    const itemClassName = cn(
+      className,
+      "flex items-center w-full px-4 py-2 text-sm text-gray-700",
+      {
+        "bg-gray-100": active,
+        "bg-blue-100": isSelected,
+        "": !isSelected && !isBanner,
+        "": isMobile,
+        "": !isMobile,
+        "font-bold": isBanner,
+      }
+    );
+
+    const IconComponent: React.ComponentType<IconProps> | undefined = icon;
+
     return (
-      <MenuButtonComponent {...rest} ref={ref}>
-        {children}
-      </MenuButtonComponent>
+      <>
+        {href ? (
+          <Link
+            href={href}
+            className={itemClassName}
+            ref={ref as React.Ref<HTMLAnchorElement>}
+            {...rest}
+          >
+            {IconComponent && (
+              <IconComponent className="h-5 w-5 mr-2" aria-hidden="true" />
+            )}
+            <span className="">{children}</span>
+          </Link>
+        ) : (
+          <MenuButtonItem
+            name={name}
+            className={itemClassName}
+            onClick={onClick}
+            ref={ref as React.Ref<HTMLButtonElement>}
+            {...rest}
+          >
+            {children}
+          </MenuButtonItem>
+        )}
+      </>
     );
   }
 );
 
-const MenuItems: React.FC<{ menuItems: MenuItemProps[] }> = (props) => {
+const DropdownMenuItems: React.FC<{ menuItems: MenuItemProps[] }> = (props) => {
   const { menuItems } = props;
 
   const filteredMenuItems = menuItems.filter(
@@ -138,30 +225,6 @@ const MenuItems: React.FC<{ menuItems: MenuItemProps[] }> = (props) => {
   );
 };
 
-const DropdownMenuItem = forwardRef<HTMLAnchorElement, MenuItemProps>(
-  (props: MenuItemProps, ref) => {
-    let { href, children, active, className, icon, ...rest } = props;
-    const itemClassName = cn(
-      className,
-      "flex items-center px-4 py-2 text-sm text-gray-700",
-      {
-        "bg-gray-100": active,
-      }
-    );
-
-    const IconComponent: React.ComponentType<IconProps> | undefined = icon;
-
-    return (
-      <Link href={href} className={itemClassName} ref={ref} {...rest}>
-        {IconComponent && (
-          <IconComponent className="h-5 w-5 mr-2" aria-hidden="true" />
-        )}
-        <span className="">{children}</span>
-      </Link>
-    );
-  }
-);
-
 const PlainMenuItem: React.FC<MenuItemProps> = (props) => {
   const {
     href,
@@ -184,11 +247,11 @@ const PlainMenuItem: React.FC<MenuItemProps> = (props) => {
     "flex items-center px-4 py-2 text-sm text-gray-700",
     {
       // "bg-slate-100 border border-gray-300": !icon,
-      "": isSelected,
+      "text-blue-400": isSelected,
       "": !isSelected && !isBanner,
       "": isMobile,
       "": !isMobile,
-      "": isBanner,
+      "font-bold": isBanner,
     }
   );
 
@@ -212,15 +275,85 @@ const DropdownMenu: React.FC<MenuItemProps> = (props) => {
   return (
     // <Menu as="div" className="block px-4 py-2 text-sm text-gray-700 ">
     <Menu as="div" className="relative ml-3">
-      <MenuButtonWrapper
+      <DropdownButtonWrapper
         icon={icon}
         iconProps={iconProps}
         name={name}
-      ></MenuButtonWrapper>
+      ></DropdownButtonWrapper>
       <TransitionMenu>
-        <MenuItems menuItems={items || []} />
+        <DropdownMenuItems menuItems={items || []} />
       </TransitionMenu>
     </Menu>
+  );
+};
+
+const DisclosureMenuItem: React.FC<MenuItemProps> = (props) => {
+  const { href, name, className, isSelected, isMobile, isBanner } = props;
+  const [isActive, setIsActive] = useState(false);
+
+  const linkClassName = cn(
+    className,
+    "flex items-center px-4 py-2 text-sm text-gray-700 border rounded border-transparent",
+    {
+      "bg-slate-100 border-gray-200": isActive,
+      "text-blue-400": isSelected,
+      "": !isSelected && !isBanner,
+      "": isMobile,
+      "": !isMobile,
+      "font-bold": isBanner,
+    }
+  );
+
+  return (
+    <Link
+      href={href}
+      key={name}
+      className={linkClassName}
+      onMouseEnter={() => setIsActive(true)}
+      onMouseLeave={() => setIsActive(false)}
+    >
+      {name}
+    </Link>
+  );
+};
+
+const DisclosureMenu: React.FC<MenuItemProps> = (props) => {
+  const { key, name, items, isMobile, icon, iconProps } = props;
+
+  return (
+    <Disclosure key={key} as="div">
+      {({ open }) => (
+        <div>
+          <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-gray-700 hover:bg-purple-200 ">
+            {name}
+
+            <ChevronUpIcon
+              className={`${
+                open ? "rotate-180 transform" : ""
+              } h-5 w-5 text-purple-500`}
+            />
+          </Disclosure.Button>
+
+          {items ? (
+            <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+              {items.map((item) => {
+                return (
+                  <DisclosureMenuItem
+                    name={item.name}
+                    href={item.href}
+                    key={item.name}
+                  >
+                    {item.name}
+                  </DisclosureMenuItem>
+                );
+              })}
+            </Disclosure.Panel>
+          ) : (
+            <Disclosure.Panel>whatever</Disclosure.Panel>
+          )}
+        </div>
+      )}
+    </Disclosure>
   );
 };
 
@@ -240,6 +373,7 @@ const MenuBuilder: React.FC<MenuProps> = (props) => {
               key={item.name}
               items={item.items}
               icon={item.icon}
+              isMobile={true}
               {...item}
             />
           );
@@ -251,4 +385,33 @@ const MenuBuilder: React.FC<MenuProps> = (props) => {
   );
 };
 
+const MobileMenuBuilder: React.FC<MenuProps> = (props) => {
+  const { menuItems } = props;
+
+  const filteredMenuItems = menuItems.filter(
+    (item) => !item.hasOwnProperty("hidden") || !item.hidden
+  );
+
+  return (
+    <Disclosure.Panel className="sm:hidden">
+      {filteredMenuItems.map((item) => {
+        if (item.items) {
+          return (
+            <DisclosureMenu
+              key={item.name}
+              name={item.name}
+              items={item.items}
+              isMobile={true}
+              as="div"
+            />
+          );
+        } else {
+          return <PlainMenuItem key={item.name} {...item} />;
+        }
+      })}
+    </Disclosure.Panel>
+  );
+};
+
 export default MenuBuilder;
+export { MenuBuilder, MobileMenuBuilder, PlainMenuItem };

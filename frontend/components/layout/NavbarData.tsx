@@ -1,8 +1,37 @@
 import { UserIcon } from "@heroicons/react/24/outline";
-
 import { MenuItemProps } from "@/components/widgets/Menu";
 
-export function getMenuUser(isAuthenticated: boolean): MenuItemProps[] {
+interface MenuProps {
+  isAuthenticated: boolean;
+  pathname: string;
+  hooks?: { [key: string]: () => void };
+}
+
+const urls = {
+  user: {
+    login: "/auth/login",
+    logout: "/logout",
+    register: "/auth/register",
+    profile: "/user/profile",
+    settings: "/user/settings",
+  },
+  main: {
+    dashboard: "/dashboard",
+    media: { audio: "/audio", video: "/video", ebook: "/ebook" },
+    school: {
+      classes: "/classes",
+      schedules: "/schedules",
+      achievements: "/achievements",
+    },
+    encyclopedia: "/encyclopedia",
+  },
+};
+
+export function getMenuUser({
+  isAuthenticated,
+  pathname,
+  hooks,
+}: MenuProps): MenuItemProps[] {
   // Define your menu items
   const menuUser: MenuItemProps[] = [
     {
@@ -13,13 +42,26 @@ export function getMenuUser(isAuthenticated: boolean): MenuItemProps[] {
         showText: true,
       },
       href: "#",
-      current: false,
       hidden: !isAuthenticated,
       className: "",
       items: [
-        { name: "Your Profile", href: "/", className: "" },
-        { name: "Settings", href: "/", className: "" },
-        { name: "Sign out", href: "/", className: "" },
+        {
+          name: "Your Profile",
+          href: urls.user["profile"],
+          isSelected: urls.user["profile"] === pathname,
+          className: "",
+        },
+        {
+          name: "Settings",
+          href: urls.user["settings"],
+          isSelected: urls.user["settings"] === pathname,
+          className: "",
+        },
+        {
+          name: "Sign out",
+          onClick: hooks && hooks.logout,
+          className: "",
+        },
       ],
     },
     {
@@ -30,12 +72,21 @@ export function getMenuUser(isAuthenticated: boolean): MenuItemProps[] {
         showText: false,
       },
       href: "#",
-      current: false,
       hidden: isAuthenticated,
       className: "",
       items: [
-        { name: "Sign in", href: "/", className: "" },
-        { name: "Register", href: "/", className: "" },
+        {
+          name: "Sign in",
+          href: urls.user["login"],
+          isSelected: urls.user["login"] === pathname,
+          className: "",
+        },
+        {
+          name: "Register",
+          href: urls.user["register"],
+          isSelected: urls.user["register"] === pathname,
+          className: "",
+        },
       ],
     },
   ];
@@ -43,31 +94,74 @@ export function getMenuUser(isAuthenticated: boolean): MenuItemProps[] {
   return menuUser;
 }
 
-export function getMenuMain(isAuthenticated: boolean): MenuItemProps[] {
+export function getMenuMain({
+  isAuthenticated,
+  pathname,
+  hooks,
+}: MenuProps): MenuItemProps[] {
   const menuMain: MenuItemProps[] = [
-    { name: "Dashboard", href: "#", current: true, className: ""},
+    {
+      name: "Dashboard",
+      href: urls.main["dashboard"],
+      isSelected: urls.main["dashboard"] === pathname,
+      className: "",
+    },
     {
       name: "Media",
       href: "#",
-      current: false,
       className: "",
       items: [
-        { name: "Videos", href: "#", className: "", icon: UserIcon},
-        { name: "Audio", href: "#", className: "", icon: UserIcon },
-        { name: "Ebooks", href: "#", className: "", icon: UserIcon },
+        {
+          name: "Video",
+          href: urls.main.media["video"],
+          isSelected: urls.main.media["video"] === pathname,
+          className: "",
+        },
+        {
+          name: "Audio",
+          href: urls.main.media["audio"],
+          isSelected: urls.main.media["audio"] === pathname,
+          className: "",
+        },
+        {
+          name: "Ebook",
+          href: urls.main.media["ebook"],
+          isSelected: urls.main.media["ebook"] === pathname,
+          className: "",
+        },
       ],
     },
-    { name: "Encyclopedia", href: "#", current: false, className: "" },
+    {
+      name: "Encyclopedia",
+      href: urls.main["encyclopedia"],
+      isSelected: urls.main["encyclopedia"] === pathname,
+      className: "",
+    },
     {
       name: "School",
       href: "#",
-      current: false,
+
       hidden: !isAuthenticated,
       className: "",
       items: [
-        { name: "Classes", href: "#", className: "" },
-        { name: "Schedules", href: "#", className: "" },
-        { name: "Achievements", href: "#", className: "" },
+        {
+          name: "Classes",
+          href: urls.main.school["classes"],
+          isSelected: urls.main.school["classes"] === pathname,
+          className: "",
+        },
+        {
+          name: "Schedules",
+          href: urls.main.school["schedules"],
+          isSelected: urls.main.school["schedules"] === pathname,
+          className: "",
+        },
+        {
+          name: "Achievements",
+          href: urls.main.school["achievements"],
+          isSelected: urls.main.school["achievements"] === pathname,
+          className: "",
+        },
       ],
     },
   ];
