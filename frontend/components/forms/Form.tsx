@@ -45,7 +45,7 @@ export default function Form({
         </InputFieldWithLabel>
       ))}
       <div>
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" variant="primary" className="w-full" disabled={isLoading}>
           {isLoading ? <Spinner md /> : btnText}
         </Button>
       </div>
