@@ -9,9 +9,9 @@ import { Mutex } from "async-mutex";
 
 // create a new mutex
 const mutex = new Mutex();
-const baseQuery = fetchBaseQuery({ 
-    baseUrl: `${process.env.NEXT_PUBLIC_HOST}/api`,
-    credentials: 'include' 
+const baseQuery = fetchBaseQuery({
+  baseUrl: `${process.env.NEXT_PUBLIC_HOST}/api`,
+  credentials: "include",
 });
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
@@ -28,8 +28,8 @@ const baseQueryWithReauth: BaseQueryFn<
       try {
         const refreshResult = await baseQuery(
           {
-            url: '/jwt/refresh/',
-            method: 'POST'
+            url: "/jwt/refresh/",
+            method: "POST",
           },
           api,
           extraOptions
@@ -55,7 +55,7 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 
 export const apiSlice = createApi({
-    reducerPath: 'api',
-    baseQuery: baseQueryWithReauth,
-    endpoints: builder => ({}),
-})
+  reducerPath: "api",
+  baseQuery: baseQueryWithReauth,
+  endpoints: (builder) => ({}),
+});
