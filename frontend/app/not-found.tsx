@@ -15,7 +15,7 @@ export default function NotFound() {
           <Link
             href="/"
             type="button"
-            variant="indigo"
+            variantLink="blue"
           >
             Go back home
           </Link>
