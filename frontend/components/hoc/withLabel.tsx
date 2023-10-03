@@ -1,9 +1,11 @@
 import { Label } from "../widgets";
 import { Link } from "../widgets";
+import { linkVariantTypes } from "../widgets";
 
 export interface LinkProps {
   text: string;
   url: string;
+  variant?: linkVariantTypes;
 }
 
 interface WithLabelProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -21,7 +23,7 @@ const withLabel = (WrappedComponent: React.ComponentType<any>) => {
         <Label htmlFor={labelId}>{children}</Label>
         {link && (
           <div className="text-sm">
-            <Link href={link.url}>{link.text}</Link>
+            <Link href={link.url} variantLink={link.variant}>{link.text}</Link>
           </div>
         )}
       </div>

@@ -11,3 +11,4 @@ export { default as TransitionMenu } from "./Transition";
 export { default as List } from "./List";
 
 export type { variantTypes as buttonVariantTypes } from "./Button";
+export type { variantTypes as linkVariantTypes } from "./Link";
