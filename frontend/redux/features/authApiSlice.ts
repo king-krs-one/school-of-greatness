@@ -27,7 +27,7 @@ const authApiSlice = apiSlice.injectEndpoints({
           state
         )}&code=${encodeURIComponent(code)}`,
         method: "POST",
-        header: {
+        headers: {
           Accept: "application/json",
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -63,21 +63,21 @@ const authApiSlice = apiSlice.injectEndpoints({
       query: ({ uid, token }) => ({
         url: "/users/activation/",
         method: "POST",
-        body: { uid, token }
+        body: { uid, token },
       }),
     }),
     resetPassword: builder.mutation({
-      query: ( email ) => ({
+      query: (email) => ({
         url: "/users/reset_password/",
         method: "POST",
-        body: { email }
+        body: { email },
       }),
     }),
     resetPasswordConfirm: builder.mutation({
       query: ({ uid, token, new_password, re_new_password }) => ({
         url: "/users/reset_password_confirm/",
         method: "POST",
-        body: { uid, token, new_password, re_new_password }
+        body: { uid, token, new_password, re_new_password },
       }),
     }),
   }),
@@ -92,5 +92,5 @@ export const {
   useLogoutMutation,
   useActivationMutation,
   useResetPasswordMutation,
-  useResetPasswordConfirmMutation
+  useResetPasswordConfirmMutation,
 } = authApiSlice;

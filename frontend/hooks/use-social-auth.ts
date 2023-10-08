@@ -19,7 +19,7 @@ export default function useSocialAuth(authenticate: any, provider: string) {
       authenticate({ provider, state, code })
         .unwrap()
         .then(() => {
-          dispatch(setAuth);
+          dispatch(setAuth());
           toast.success("Logged in");
           router.push("/dashboard");
         })

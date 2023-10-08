@@ -17,7 +17,7 @@ const List: React.FC<ListProps> = ({ config }) => {
     <ul role="list" className="divide-y divide-gray-100">
       {config.map(({ label, value }) => {
         return (
-          <li className="flex justify-between gap-x-6 py-5">
+          <li key={label} className="flex justify-between gap-x-6 py-5">
             <div>
               <p className="text-sm font-semibold leading-6 text-gray-900">
                 {label}
