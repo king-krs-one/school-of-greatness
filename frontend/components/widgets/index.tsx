@@ -9,6 +9,7 @@ export { default as Spinner } from "./Spinner";
 export { default as NavigationMenu } from "./Menu";
 export { default as TransitionMenu } from "./Transition";
 export { default as List } from "./List";
+export { default as SocialButtons, SocialButton } from "./SocialButtons";
 
 export type { variantTypes as buttonVariantTypes } from "./Button";
 export type { variantTypes as linkVariantTypes } from "./Link";
