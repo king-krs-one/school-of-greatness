@@ -20,7 +20,6 @@ export default function RequireAuth({ children }: RequireAuthProps) {
   }
 
   if (!isAuthenticated) {
-    console.log('-----not-isAuthenticated----------------------------------')
     redirect("/auth/login");
   }
 

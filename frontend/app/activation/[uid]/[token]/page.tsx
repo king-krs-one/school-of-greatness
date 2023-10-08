@@ -22,11 +22,9 @@ export default function Page({ params }: PageProps) {
     activation({ uid, token })
       .unwrap()
       .then((response) => {
-        console.log(response);
         toast.success("Account activated");
       })
       .catch((response) => {
-        console.log(response);
         toast.error(`Failed to activate account: ${response.data.detail}`);
       })
       .finally(() => {
