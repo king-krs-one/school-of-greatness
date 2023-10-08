@@ -1,4 +1,4 @@
-import { Link, Heading, Image } from "@/components/widgets";
+import { Link, Heading, Image, SocialButtons } from "@/components/widgets";
 import { RegisterForm } from "@/components/forms";
 import type { Metadata } from "next";
 
@@ -24,6 +24,7 @@ export default function Page() {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <RegisterForm />
+          <SocialButtons />
           <p className="mt-10 text-center text-sm text-gray-500">
             Already have an account? <Link href="/auth/login">Login here</Link>
           </p>

@@ -29,8 +29,8 @@ export default function Page() {
 
   return (
     <>
-      <header className="mx-auto max-w-7xl bg-white shadow">
-        <div className="px-4 py-6 sm:px-6 lg:px-8">
+      <header className="mx-auto max-w-7xl bg-white">
+        <div className="px-4 py-6 sm:px-6 lg:px-8 border-b">
           <Heading level="h1">Dashboard</Heading>
         </div>
       </header>
