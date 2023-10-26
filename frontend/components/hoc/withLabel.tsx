@@ -23,7 +23,9 @@ const withLabel = (WrappedComponent: React.ComponentType<any>) => {
         <Label htmlFor={labelId}>{children}</Label>
         {link && (
           <div className="text-sm">
-            <Link href={link.url} variantLink={link.variant}>{link.text}</Link>
+            <Link href={link.url} variantLink={link.variant}>
+              {link.text}
+            </Link>
           </div>
         )}
       </div>
@@ -36,5 +38,6 @@ const withLabel = (WrappedComponent: React.ComponentType<any>) => {
     </div>
   );
 };
+
 
 export default withLabel;

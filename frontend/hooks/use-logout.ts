@@ -4,7 +4,6 @@ import { useLogoutMutation } from "@/redux/features/authApiSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { logout as setLogout } from "@/redux/features/authSlice";
-import { toast } from "react-toastify";
 
 export default function useLogout() {
   const router = useRouter();
@@ -15,7 +14,6 @@ export default function useLogout() {
     logout(undefined)
       .unwrap()
       .then(() => {
-        toast.success("Succesfully logged out");
         dispatch(setLogout());
       })
       .finally(() => {

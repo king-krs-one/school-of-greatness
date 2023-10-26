@@ -413,5 +413,8 @@ const MobileMenuBuilder: React.FC<MenuProps> = (props) => {
   );
 };
 
+MenuButtonItem.displayName = "MenuButtonItem"
+DropdownMenuItem.displayName = "DropdownMenuItem"
+
 export default MenuBuilder;
 export { MenuBuilder, MobileMenuBuilder, PlainMenuItem };
