@@ -17,7 +17,7 @@ interface WithLabelProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const withLabel = (WrappedComponent: React.ComponentType<any>) => {
-  return ({ labelId, link, children, ...rest }: WithLabelProps) => (
+  const WithLabelComponent = ({ labelId, link, children, ...rest }: WithLabelProps) => (
     <div className="mb-4">
       <div className="flex justify-between align-center">
         <Label htmlFor={labelId}>{children}</Label>
@@ -37,7 +37,11 @@ const withLabel = (WrappedComponent: React.ComponentType<any>) => {
       />
     </div>
   );
-};
 
+  // Set a displayName directly
+  WithLabelComponent.displayName = `WithLabel(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+
+  return WithLabelComponent;
+};
 
 export default withLabel;

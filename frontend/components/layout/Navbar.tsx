@@ -8,6 +8,7 @@ import {
 
 import React from "react";
 import Link from "next/link";
+import { Image } from "../widgets";
 import { Disclosure } from "@headlessui/react";
 import { usePathname } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
@@ -53,7 +54,7 @@ export default function Navbar() {
                     href=""
                     className="block px-4 py-2 text-sm text-gray-700"
                   >
-                    <img
+                    <Image
                       className="h-8 w-auto"
                       src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                       alt="School of Greatness"

@@ -30,7 +30,7 @@ export default function Page({ params }: PageProps) {
       .finally(() => {
         router.push("/auth/login");
       });
-  }, []);
+  }, [activation, params, router]);
 
   return (
     <PageElement>
