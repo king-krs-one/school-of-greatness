@@ -24,6 +24,7 @@ const urls = {
       achievements: "/achievements",
     },
     encyclopedia: "/encyclopedia",
+    components: "/components",
   },
 };
 
@@ -163,6 +164,12 @@ export function getMenuMain({
           className: "",
         },
       ],
+    },
+    {
+      name: "Components",
+      href: urls.main["components"],
+      isSelected: urls.main["components"] === pathname,
+      className: "",
     },
   ];
   return menuMain;

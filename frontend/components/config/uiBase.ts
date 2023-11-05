@@ -1,0 +1,60 @@
+export const colors = {
+  text: {
+    primary: '#0f172a',
+    secondary: '#6c788d',
+    dark: '#0f172a',
+    light: '#efefef',
+    white: '#ffffff',
+    blue: '#0d6efd',
+
+    // not commonly used, a field with color bg will normally have white text color
+    // used e.g. for active text field label
+    success: '#11ac90',
+    error: '#de5970',
+    info: '#0171cf',
+    warning: '#ffcc00',
+    maintenance: '#e5947a',
+  },
+  background: {
+    default: '#fefefe',
+    primary: '#0171cf',
+    secondary: '#363a44',
+    // secondary: '#242a33',
+    success: '#11ac90',
+    error: '#de5970',
+    info: '#0171cf',
+    active: '#426ecb',
+    // active: '#0171cf',
+    selected: '#2b3d59',
+    warning: '#ffcc00',
+    maintenance: '#e5947a',
+  },
+  border: {
+    default: '#fefefe',
+    active: '#0171cf',
+    focus: '#0171cf',
+    hover: '#0171cf',
+    primary: '#0171cf',
+    secondary: '#242a33',
+    success: '#11ac90',
+    error: '#de5970',
+    info: '#0171cf',
+    warning: '#ffcc00',
+    maintenance: '#e5947a',
+  },
+};
+
+export const fontSizes = {
+  xs: '0.6rem',
+  sm: '0.8rem',
+  md: '1.0rem',
+  lg: '1.2rem',
+  xl: '1.6rem',
+  h1: '2.4rem',
+  h2: '2rem',
+  h3: '1.6rem',
+  h4: '1.2rem',
+  h5: '1.0rem',
+  h6: '0.8rem',
+  lead: '1.25',
+};
