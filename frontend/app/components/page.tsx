@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, ChangeEvent } from "react";
-import { Heading, InputField, Select } from "@/components/widgets";
+import { Heading, InputField, Select, Table } from "@/components/widgets";
 import Input from "@/components/widgets/Input/index";
 
 export default function Page() {
@@ -30,8 +30,17 @@ export default function Page() {
           <Input id="id" label="Label" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setValues({...values, input: e.target.value})} />
         </div>
         <div className="form-control">
-          <Heading level="h2">Select XYZ</Heading>
+          <Heading level="h2">Select</Heading>
           <Select id="select" type="text" options={options} onChange={(item) => console.log(item)} />
+        </div>
+        <div className="form-control">
+          <Heading level="h2">Table</Heading>
+          <Table
+            id="myTable"
+            data={[]}
+            columns={[]}
+            onChange={(index, id, value) => console.log(index, id, value)}
+          />
         </div>
       </main>
     </>

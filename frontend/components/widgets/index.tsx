@@ -11,6 +11,7 @@ export { default as TransitionMenu } from "./Transition";
 export { default as List } from "./List";
 export { default as SocialButtons, SocialButton } from "./SocialButtons";
 export { default as Select } from "./Select";
+export { default as Table } from "./Table";
 
 export type { variantTypes as buttonVariantTypes } from "./Button";
 export type { variantTypes as linkVariantTypes } from "./Link";

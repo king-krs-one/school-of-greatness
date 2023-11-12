@@ -59,20 +59,21 @@ const InputField: React.FC<InputFieldProps> = (props) => {
         name={name}
         value={value}
         type={type || 'text'}
-        className={className}
+        className={'input-base hover:input-hover focus:input-focus without-ring'}
         onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleFocus}
         onMouseOver={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         // chakra ui attributes / style
-        style={styleInput.input}
+        // style={styleInput.input}
         // Pass any additional props to the input element
         {...rest}
       />
       <label
         htmlFor={id}
-        style={styleLabel.label as CSSProperties}
+        className={`input-label ${ isActive && 'input-label-focus'}`}
+        // style={styleLabel.label as CSSProperties}
         // {...style.label as FormLabelProps}
       >
         <div style={styleLabel.labelBgBorder} />
