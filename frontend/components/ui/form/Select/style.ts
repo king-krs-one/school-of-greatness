@@ -1,4 +1,4 @@
-import { components } from "../../config/uiComponents";
+import { components } from "../../../config/uiComponents";
 import { CSSProperties } from 'react';
 
 type sizeProps = "base" | "small";

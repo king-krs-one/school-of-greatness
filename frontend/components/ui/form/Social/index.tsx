@@ -1,7 +1,7 @@
 "use client";
 
 import cn from "classnames";
-import { Button } from ".";
+import { Button } from "../..";
 import { ImGoogle, ImFacebook } from "react-icons/im";
 import { continueWithGoogle, continueWithFacebook } from "@/utils";
 

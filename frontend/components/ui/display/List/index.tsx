@@ -1,6 +1,6 @@
 "use client";
 
-import { Spinner } from ".";
+import { Spinner } from "../..";
 
 interface ConfigProps {
   label: string;

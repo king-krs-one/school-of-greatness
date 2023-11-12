@@ -8,13 +8,13 @@ import {
 
 import React from "react";
 import Link from "next/link";
-import { Image } from "../widgets";
+import { Image } from "../ui";
 import { Disclosure } from "@headlessui/react";
 import { usePathname } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { useLogout } from "@/hooks";
 
-import { MenuBuilder, MobileMenuBuilder, PlainMenuItem } from "../widgets/Menu";
+import { MenuBuilder, MobileMenuBuilder, PlainMenuItem } from "../ui";
 import { getMenuMain, getMenuUser } from "./NavbarData";
 
 export default function Navbar() {

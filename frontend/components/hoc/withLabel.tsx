@@ -1,6 +1,6 @@
-import { Label } from "../widgets";
-import { Link } from "../widgets";
-import { linkVariantTypes } from "../widgets";
+import { Label } from "../ui";
+import { Link } from "../ui";
+import { variantTypes as linkVariantTypes } from "../ui/navigation/Link";
 
 export interface LinkProps {
   text: string;

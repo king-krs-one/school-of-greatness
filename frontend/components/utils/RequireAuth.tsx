@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
-import { Spinner } from "../widgets";
+import { Spinner } from "../ui";
 
 interface RequireAuthProps {
   children: React.ReactNode;

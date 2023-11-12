@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, ChangeEvent } from "react";
-import { Heading, InputField, Select, Table } from "@/components/widgets";
-import Input from "@/components/widgets/Input/index";
+import { Heading, InputField, Select, Table } from "@/components/ui";
 
 export default function Page() {
   const options = [
@@ -27,7 +26,7 @@ export default function Page() {
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="form-control">
           <Heading level="h2">Input</Heading>
-          <Input id="id" label="Label" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setValues({...values, input: e.target.value})} />
+          <InputField id="id" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setValues({...values, input: e.target.value})} />
         </div>
         <div className="form-control">
           <Heading level="h2">Select</Heading>

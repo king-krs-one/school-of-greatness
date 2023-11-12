@@ -2,7 +2,7 @@
 
 import { Menu, Disclosure } from "@headlessui/react";
 import React, { useState, ReactNode, forwardRef } from "react";
-import { TransitionMenu } from ".";
+import { TransitionMenu } from "../..";
 import cn from "classnames";
 import Link from "next/link";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";

@@ -1,4 +1,4 @@
-import withLabel from "../hoc/withLabel";
+import withLabel from "../../../hoc/withLabel";
 
 export type ValidInputTypes =
   | "text"

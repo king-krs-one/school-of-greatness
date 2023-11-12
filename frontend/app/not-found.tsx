@@ -1,4 +1,4 @@
-import { Heading, Link } from "@/components/widgets";
+import { Heading, Link } from "@/components/ui";
 
 export default function NotFound() {
   return (

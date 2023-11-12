@@ -1,7 +1,7 @@
 import { LinkProps as NextLinkProps } from "next/link";
 import Link from "next/link";
 import cn from "classnames";
-import { getButtonClassName, buttonVariantTypes } from ".";
+import { getButtonClassName, buttonVariantTypes } from "../..";
 
 export type variantTypes =
   | "blank"

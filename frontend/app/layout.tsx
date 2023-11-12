@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Provider from "@/redux/provider";
 import { Navbar, Footer } from "@/components/layout";
-import { Notification } from "@/components/widgets";
+import { Notification } from "@/components/ui";
 import { Setup } from "@/components/utils";
 
 const inter = Inter({ subsets: ["latin"] });

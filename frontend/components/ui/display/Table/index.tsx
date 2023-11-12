@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react';
 import {
   getCoreRowModel,
@@ -11,7 +13,11 @@ import {
 import type { ColumnDef } from '@tanstack/react-table';
 import { Box } from '@chakra-ui/react';
 
-import { AppIcon } from '../../../componentsOld/ui';
+import {
+  ArrowsUpDownIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+} from '@heroicons/react/24/outline';
 
 import Filters from './Filters';
 import { PopoverControl } from './Controls';
@@ -59,16 +65,16 @@ ReactTableProps<T>) => {
         if (onChange) {
           onChange(rowIndex, columnId, value);
         }
-        setTableData((prev) => (
-          prev.map((row, index) => (
+        setTableData((prev) =>
+          prev.map((row, index) =>
             index === rowIndex
               ? {
-                ...prev[rowIndex],
-                [columnId]: value,
-              }
+                  ...prev[rowIndex],
+                  [columnId]: value,
+                }
               : row
-          ))
-        ));
+          )
+        );
       },
     },
   });
@@ -119,7 +125,12 @@ ReactTableProps<T>) => {
         >
           <Box className="tHead" width={`calc(100% - ${scrollBarWidth()}px)`}>
             {table.getHeaderGroups().map((headerGroup) => (
-              <Box className="tr" key={headerGroup.id} border="none" width="full">
+              <Box
+                className="tr"
+                key={headerGroup.id}
+                border="none"
+                width="full"
+              >
                 {headerGroup.headers.map((header) => (
                   <Box
                     className="th"
@@ -143,17 +154,13 @@ ReactTableProps<T>) => {
                       justifyContent="center"
                       cursor="pointer"
                     >
-                      <AppIcon
-                        icon="down"
-                        size="4"
-                        transform={
-                          {
-                            asc: 'rotate(180deg)',
-                            desc: '',
-                            none: 'rotate(270deg)',
-                          }[String(header.column.getIsSorted() || 'none')]
-                        }
-                      />
+                      {
+                        {
+                          asc: <ArrowUpIcon />,
+                          desc: <ArrowDownIcon />,
+                          none: <ArrowsUpDownIcon />,
+                        }[String(header.column.getIsSorted() || 'none')]
+                      }
                     </Box>
                     {/* TH RESIZING DRAG BORDER */}
                     <Box

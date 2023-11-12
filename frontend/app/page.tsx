@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Link, Heading } from "@/components/widgets";
+import { Link, Heading } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "School of Greatness | Home",
